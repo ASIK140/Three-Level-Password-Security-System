@@ -1,23 +1,35 @@
 {
-    "asik123": {
-        "username": "asik123",
-        "password": "acf78b993694f1df5a1e15e63e48d78371e1974089731301ab98bf24eea42413",
-        "failed_attempts": 0,
-        "locked_until": null,
-        "email": "asiksk137@gmail.com",
-        "security_question": "kaliachak",
-        "security_answer": "84cdb981037648c41f06dea25de7dcb2f26c5b965a47e8e2cc44b33e0412ad66"
-    },
     "asik": {
         "username": "asik",
-        "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
-        "failed_attempts": 0,
-        "locked_until": null,
         "email": "asiksk137@gmail.com",
-        "image_selection": [
-            1,
-            2,
-            3
+        "password": "d183e1cdbbe7870d64722662617acc1e2fc2e3441fc3de6c5b92433912a6ed58",
+        "security_level": 1,
+        "2fa_enabled": true,
+        "2fa_method": "email",
+        "2fa_backup_codes": [
+            "690303",
+            "770590",
+            "161305",
+            "815228",
+            "635333"
         ]
+    },
+    "asiksk": {
+        "username": "asiksk",
+        "email": "asikeducation140@gmail.com",
+        "password": "d183e1cdbbe7870d64722662617acc1e2fc2e3441fc3de6c5b92433912a6ed58",
+        "security_level": 1,
+        "auth_images": [
+            "house.jpg",
+            "car.jpg",
+            "tree.jpg"
+        ],
+        "correct_images": [
+            "house.jpg",
+            "car.jpg",
+            "tree.jpg"
+        ],
+        "selected_image": "car.jpg",
+        "2fa_enabled": true
     }
 }

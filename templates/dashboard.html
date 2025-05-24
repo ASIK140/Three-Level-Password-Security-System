@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="auth-container">
+    <h1 class="text-center mb-4">Welcome, {{ username }}!</h1>
+    <div class="card">
+        <div class="card-body text-center">
+            <p class="lead">You have successfully authenticated through all three security levels.</p>
+            <div class="security-steps">
+                <div class="step completed">
+                    <span class="step-number">1</span>
+                    <span class="step-text">Password Authentication</span>
+                </div>
+                <div class="step completed">
+                    <span class="step-number">2</span>
+                    <span class="step-text">2FA Verification</span>
+                </div>
+                <div class="step completed">
+                    <span class="step-number">3</span>
+                    <span class="step-text">Image Authentication</span>
+                </div>
+            </div>
+            <a href="{{ url_for('logout') }}" class="btn btn-danger mt-4">Logout</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

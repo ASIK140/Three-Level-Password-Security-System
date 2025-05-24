@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="text-center mb-4">Select Your 3 Authentication Images</h2>
+            <p class="text-center">Choose the same 3 images you selected during registration</p>
+            
+            <form method="POST">
+                <div class="row">
+                    {% for image in all_images %}
+                    <div class="col-md-3 col-6 mb-3">
+                        <div class="image-checkbox">
+                            <input type="checkbox" name="image_choice" 
+                                   id="image{{ loop.index }}" value="{{ image }}"
+                                   class="visually-hidden">
+                            <label for="image{{ loop.index }}">
+                                <img src="{{ url_for('static', filename='auth_images/' + image) }}" 
+                                     class="img-thumbnail auth-image"
+                                     style="width: 100%; height: 150px; object-fit: cover;">
+                                <div class="selection-badge">✓</div>
+                            </label>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <div class="mt-4 text-center">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        Verify Images
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

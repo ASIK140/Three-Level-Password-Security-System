@@ -16,7 +16,6 @@ class UserData:
                 return username in data
             except json.JSONDecodeError:
                 return False
-
     @staticmethod
     def save_user_data(username, user_data):
         data = {}

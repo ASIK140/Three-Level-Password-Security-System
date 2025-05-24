@@ -1,48 +1,21 @@
 from .models import UserData
-from .utils import get_valid_input, update_failed_attempts, reset_failed_attempts
 import getpass
-
-def register_user():
-    print("\n--- Registration ---")
-    username = get_valid_input("Enter username: ")
-    
+def register_user(username, email, password):
     if UserData.user_exists(username):
-        print("Username already exists!")
-        return False
-    
-    # Password setup
-    while True:
-        password = getpass.getpass("Enter password: ")
-        confirm_password = getpass.getpass("Confirm password: ")
-        if password == confirm_password:
-            break
-        print("Passwords don't match!")
-    
-    hashed_password = UserData.hash_password(password)
-    
+        raise ValueError("Username already exists")
+    if not email or '@' not in email:
+        raise ValueError("Invalid email address")
+    if len(password) < 8:
+        raise ValueError("Password must be at least 8 characters")
     return {
         "username": username,
-        "password": hashed_password,
-        "failed_attempts": 0,
-        "locked_until": None
+        "email": email,
+        "password": UserData.hash_password(password),
+        "security_level": 1
     }
 
-def login_user(username):
-    if not UserData.user_exists(username):
-        print("User does not exist!")
-        return False
-    
+def login_user(username, password):
     user_data = UserData.load_user_data(username)
-    
-    if UserData.is_account_locked(user_data):
-        print(f"Account locked until {user_data['locked_until']}")
+    if not user_data:
         return False
-    
-    password = getpass.getpass("Enter password: ")
-    if not UserData.verify_password(password, user_data["password"]):
-        print("Incorrect password!")
-        update_failed_attempts(username)
-        return False
-    
-    reset_failed_attempts(username)
-    return True
+    return UserData.verify_password(password,user_data.get("password"))

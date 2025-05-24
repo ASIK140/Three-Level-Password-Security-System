@@ -1,0 +1,181 @@
+body {
+    background-color: #f8f9fa;
+    padding-top: 50px;
+}
+
+.auth-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.image-choice-card {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.image-choice-card:hover {
+    transform: scale(1.03);
+}
+
+.image-choice-card img {
+    height: 150px;
+    object-fit: cover;
+}
+
+.security-steps {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 0;
+}
+
+.step {
+    text-align: center;
+    position: relative;
+    flex: 1;
+}
+
+.step-number {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    background-color: #e9ecef;
+    color: #6c757d;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.step.completed .step-number {
+    background-color: #198754;
+    color: white;
+}
+
+.step-text {
+    display: block;
+    color: #6c757d;
+}
+
+.step.completed .step-text {
+    color: #198754;
+    font-weight: bold;
+}
+
+.step:not(:last-child):after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    width: 100%;
+    height: 2px;
+    background-color: #e9ecef;
+    z-index: -1;
+}
+
+.step.completed:not(:last-child):after {
+    background-color: #198754;
+}
+/* Image Authentication Styles */
+.image-auth-form {
+    margin-top: 20px;
+}
+
+.image-option {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.image-option:hover {
+    transform: scale(1.02);
+}
+
+.auth-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border: 2px solid #dee2e6;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.image-option input[type="radio"]:checked + label .auth-image {
+    border: 3px solid #28a745;
+    box-shadow: 0 0 15px rgba(40, 167, 69, 0.3);
+}
+
+.image-selection-indicator {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 25px;
+    height: 25px;
+    background-color: #28a745;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.image-option input[type="radio"]:checked + label .image-selection-indicator {
+    opacity: 1;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+/* Image Verification Styles */
+.image-checkbox {
+    position: relative;
+    cursor: pointer;
+}
+
+.image-checkbox input[type="checkbox"]:checked + label img {
+    border: 3px solid #28a745;
+    box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
+}
+
+.image-checkbox input[type="checkbox"]:checked + label .selection-badge {
+    opacity: 1;
+}
+
+.selection-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #28a745;
+    color: white;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.auth-image {
+    transition: all 0.3s ease;
+}
+
+.image-checkbox:hover .auth-image {
+    transform: scale(1.03);
+}

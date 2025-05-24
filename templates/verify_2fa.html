@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="auth-container">
+    <h1 class="text-center mb-4">Verify Your Identity</h1>
+    <div class="card">
+        <div class="card-body">
+            <div class="alert alert-info">
+                <p>We've sent a verification code to <strong>{{ email }}@...</strong></p>
+                {% if expires_in > 0 %}
+                <p class="mb-0">Expires in: <span class="fw-bold">{{ expires_in }} minutes</span></p>
+                {% else %}
+                <p class="mb-0 text-danger">Code has expired. Please login again.</p>
+                {% endif %}
+            </div>
+            
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="code" class="form-label">6-digit Code</label>
+                    <input type="text" inputmode="numeric" pattern="\d{6}" 
+                           class="form-control" id="code" name="code"
+                           placeholder="123456" required autofocus>
+                </div>
+                <button type="submit" class="btn btn-primary w-100" 
+                        {% if expires_in <= 0 %}disabled{% endif %}>
+                    Verify
+                </button>
+            </form>
+            
+            <div class="mt-3 text-center">
+                <a href="{{ url_for('login') }}" class="btn btn-sm btn-outline-secondary">
+                    Back to Login
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

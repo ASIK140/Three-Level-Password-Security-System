@@ -1,63 +1,65 @@
-# auth/level02.py
-import random
+import pyotp
 import smtplib
 from email.mime.text import MIMEText
-from auth.config import EMAIL_CONFIG
-from auth.utils import get_valid_input
+from datetime import datetime
+from auth.config import SMTP_CONFIG
+from auth.models import UserData
 
-def send_verification_email(receiver_email, verification_code):
-    """Send email with verification code"""
-    message = MIMEText(f'Your verification code is: {verification_code}')
-    message['Subject'] = EMAIL_CONFIG['EMAIL_SUBJECT']
-    message['From'] = EMAIL_CONFIG['SENDER_EMAIL']
-    message['To'] = receiver_email
+def setup_2fa(username):
+    """Generate and send new OTP without backup codes"""
+    # Generate fresh OTP
+    secret = pyotp.random_base32()
+    totp = pyotp.TOTP(secret, interval=300)  # 5-minute expiry
+    current_otp = totp.now()
+    
+    # Get user email
+    user_data = UserData.load_user_data(username)
+    if not user_data or not user_data.get('email'):
+        raise ValueError("User email not found")
+    
+    # Send the OTP email
+    send_otp_email(
+        recipient=user_data['email'],
+        otp_code=current_otp
+    )
+    
+    return {
+        "2fa_enabled": True,
+        "2fa_secret": secret,
+        "last_otp_sent": datetime.now().isoformat()
+    }
 
+def send_otp_email(recipient, otp_code):
+    """Send OTP email without backup codes"""
+    message = f"""\
+    Your new verification code is: {otp_code}
+    Expires in 5 minutes.
+    
+    This code is valid for one login attempt only.
+    """
+    
+    msg = MIMEText(message)
+    msg['Subject'] = "Your Login Verification Code"
+    msg['From'] = SMTP_CONFIG['FROM']
+    msg['To'] = recipient
+    
     try:
-        with smtplib.SMTP(
-            EMAIL_CONFIG['SMTP_SERVER'],
-            EMAIL_CONFIG['SMTP_PORT']
-        ) as server:
+        with smtplib.SMTP(SMTP_CONFIG['SERVER'], SMTP_CONFIG['PORT']) as server:
             server.starttls()
-            server.login(
-                EMAIL_CONFIG['SENDER_EMAIL'],
-                EMAIL_CONFIG['SENDER_PASSWORD']
-            )
-            server.send_message(message)
-        return True
+            server.login(SMTP_CONFIG['USERNAME'], SMTP_CONFIG['PASSWORD'])
+            server.send_message(msg)
     except Exception as e:
-        print(f"Failed to send email: {e}")
+        raise RuntimeError(f"Failed to send OTP: {str(e)}")
+
+def verify_2fa(user_data, code):
+    """Verify the 2FA code with time window tolerance"""
+    if not user_data.get("2fa_enabled", False):
         return False
-
-def setup_2fa():
-    """Setup two-factor authentication during registration"""
-    print("\n--- Two-Factor Authentication Setup ---")
-    while True:
-        email = get_valid_input("Enter email for 2FA: ")
-        if '@' in email and '.' in email:  # Basic email validation
-            return {"email": email}
-        print("Please enter a valid email address.")
-
-def verify_2fa(user_data):
-    """Verify two-factor authentication code"""
-    print("\n--- Level 2: Two-Factor Authentication ---")
-    email = user_data["email"]
-    verification_code = str(random.randint(100000, 999999))
     
-    # Send actual email
-    if not send_verification_email(email, verification_code):
-        print("Failed to send verification email. Using fallback method.")
-        print(f"[FALLBACK] Your verification code is: {verification_code}")
+    secret = user_data.get("2fa_secret")
+    if not secret:
+        return False
     
-    attempts = 3
-    while attempts > 0:
-        user_code = input("Enter the 6-digit verification code: ").strip()
-        
-        if user_code == verification_code:
-            return True
-        
-        attempts -= 1
-        if attempts > 0:
-            print(f"Incorrect code. {attempts} attempts remaining.")
-    
-    print("Too many incorrect attempts.")
-    return False
+    # Verify with 1-step window tolerance (current and previous OTP)
+    totp = pyotp.TOTP(secret, interval=300)
+    return totp.verify(code, valid_window=1) 

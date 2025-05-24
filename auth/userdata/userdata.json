@@ -1,0 +1,74 @@
+{
+    "asik": {
+        "username": "asik",
+        "email": "asiksk137@gmail.com",
+        "password": "asikasik",
+        "security_level": 1,
+        "2fa_enabled": true,
+        "2fa_method": "authenticator",
+        "2fa_secret": "FPK73O627IECOB6ZVYQJAKEIFR4NRIDQ",
+        "2fa_backup_codes": [
+            "761613",
+            "323778",
+            "921427",
+            "751565",
+            "223855"
+        ],
+        "auth_images": [
+            "mountain.jpg",
+            "cat.jpg",
+            "dog.jpg",
+            "car.jpg",
+            "house.jpg"
+        ],
+        "correct_image": "cat.jpg"
+    },
+    "admin": {
+        "username": "admin",
+        "email": "asiksk137@gmail.com",
+        "password": "d183e1cdbbe7870d64722662617acc1e2fc2e3441fc3de6c5b92433912a6ed58",
+        "security_level": 1,
+        "2fa_enabled": true,
+        "2fa_method": "authenticator",
+        "2fa_secret": "TWH436OPWYXNJM62CU7IJB7SFHMTATF3",
+        "2fa_backup_codes": [
+            "193508",
+            "640796",
+            "350206",
+            "405139",
+            "149372"
+        ],
+        "auth_images": [
+            "cat.jpg",
+            "mountain.jpg",
+            "dog.jpg",
+            "car.jpg",
+            "house.jpg"
+        ],
+        "correct_image": "car.jpg"
+    },
+    "asiksk": {
+        "username": "asiksk",
+        "email": "asiksk137@gmail.com",
+        "password": "d183e1cdbbe7870d64722662617acc1e2fc2e3441fc3de6c5b92433912a6ed58",
+        "security_level": 1,
+        "2fa_enabled": true,
+        "2fa_method": "authenticator",
+        "2fa_secret": "2DFZLAZVTAIUKJR7F5ARXF7DIQGSRJB6",
+        "2fa_backup_codes": [
+            "266534",
+            "567923",
+            "606438",
+            "613725",
+            "152053"
+        ],
+        "auth_images": [
+            "house.jpg",
+            "mountain.jpg",
+            "cat.jpg",
+            "car.jpg",
+            "tree.jpg"
+        ],
+        "correct_image": "cat.jpg"
+    }
+}

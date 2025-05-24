@@ -1,8 +1,9 @@
-# auth/config.py
-EMAIL_CONFIG = {
-    'SMTP_SERVER': 'smtp.gmail.com',  # For Gmail, change for other providers
-    'SMTP_PORT': 587,
-    'SENDER_EMAIL': 'asikeducation140@gmail.com',  # Your email address
-    'SENDER_PASSWORD': 'ngah mjua upgl rfgj',  # Use App Password for Gmail
-    'EMAIL_SUBJECT': 'Your Verification Code',
+
+SMTP_CONFIG = {
+    "SERVER": "smtp.gmail.com",
+    "PORT": 587,
+    "USERNAME": "asikeducation140@gmail.com",  # Replace with your Gmail
+    "PASSWORD": "ngah mjua upgl rfgj",  # Replace with app password
+    "FROM": "asikeducation140@gmail.com",  # Should match USERNAME
+    "TIMEOUT": 10  # seconds
 }
